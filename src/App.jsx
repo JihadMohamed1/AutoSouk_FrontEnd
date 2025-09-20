@@ -2,7 +2,8 @@ import { useState } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import Landingpage from './Components/Landingpage/Landingpage'
 import AboutComponent from './Components/AboutComponent/AboutComponent'
-import Compp from './Components/Compp/compp'
+import ContactComponent from './Components/ContactComponent/ContactComponent'
+import LoginCopmonent from './Components/LoginComponent/LoginComponent'
 
 
 
@@ -13,7 +14,10 @@ function App() {
 <BrowserRouter>
 <Routes>
   <Route path='/' element={<Landingpage/>}/>
-  <Route path='/lkl' element={<Compp/>}/>
+    <Route path='/Contact' element={<ContactComponent/>}/>
+        <Route path='/Login' element={<LoginCopmonent/>}/>
+
+
 </Routes>
 </BrowserRouter>
   )
