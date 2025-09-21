@@ -3,34 +3,41 @@ import './LoginComponent.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Service from '../../Services/AuthServices'
+import { Navigate, useNavigate } from "react-router-dom";
 export default function LoginCopmonent(){
 
     const [email,SetEmail]=useState('');
     const [password,SetPassword]=useState('');
     const [token,SetToken]=useState('');
- 
-    async function Authentication () {
+    const [error, setError] = useState(null);
+    let navigate = useNavigate();
+    async function Authentication (e) {
+      e.preventDefault();
     try{
 const data = {email,password}
-console.log("data=>",data);
 
 const res = await Service.AuthUser(data)
-console.log("RESPONSE =>",res);
+console.assert(res.data)
+navigate("/");
     }
     catch(err){
-console.log("Error =>",err);
-
+setError(err.response?.data?.message || "Something went wrong");
     }
     }
+  
     return(
         
         <div className="body">
         <div className="center-block">
+           {error && (
+            <div className="alert alert-danger" role="alert">
+              {error}
+            </div>
+          )}
         <Form >
       <Form.Group className="mb-3 " controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" onChange={(e)=>{SetEmail(e.target.value) ,console.log("email =>",e.target.value)
-        } } />
+        <Form.Control type="email" placeholder="Enter email" onChange={(e)=>{SetEmail(e.target.value) } } />
         <Form.Text className="text-muted">
           We'll never share your email with anyone else.
         </Form.Text>
@@ -38,8 +45,9 @@ console.log("Error =>",err);
 
       <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" onChange={(e)=>{SetPassword(e.target.value),console.log("password =>",e.target.value)}} />
+        <Form.Control type="password" placeholder="Password" onChange={(e)=>{SetPassword(e.target.value)}} />
       </Form.Group>
+       
       <Form.Group className="mb-3" controlId="formBasicCheckbox">
         <Form.Check type="checkbox" label="Check me out" />
       </Form.Group>
