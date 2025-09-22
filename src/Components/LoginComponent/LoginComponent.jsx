@@ -18,7 +18,7 @@ const data = {email,password}
 
 const res = await Service.AuthUser(data)
 console.assert(res.data)
-navigate("/");
+navigate("/Cars");
     }
     catch(err){
 setError(err.response?.data?.message || "Something went wrong");

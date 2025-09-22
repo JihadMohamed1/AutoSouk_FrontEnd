@@ -1,10 +1,10 @@
 import axios from "./http_common"
-async function AuthUser(data)
+async function AuthUser(credentials)
 {
-    console.log("send request=>",data);
     
-    const res =  await axios.post("/api/auth/signin",data)
-    console.log("respons=>",res.data);
+    const res =  await axios.post("/api/auth/signin",credentials, {
+    withCredentials: true, // IMPORTANT: allows browser to accept cookie
+  })
     
     return res;
 }
